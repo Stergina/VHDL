@@ -11,4 +11,4 @@ We build a 1-bit ALU hierarchically using subcircuits capable of performing the 
 
 
 * **16-bit ALU:**  
-The 1-bit ALU constructed in the first step, is now used in order to implement the 16-bit ALU.
+The 1-bit ALU constructed in the first step, is now used in order to implement the 16-bit ALU. In addition, we implement a new entity which is responsible of . This  entity has as input the operation code which determines which operation will be executed by the ALU and as ouputs the Ainvert, Binvert, carryIn and operation.
