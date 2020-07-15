@@ -7,7 +7,7 @@ The aim of this project is to design a hierarchical circuit that will implement 
 **Structure of the code**:  
 In the first part, we design and implement a 1-bit ALU, while in the second part we implement a 16-bit ALU using the 1-bit ALU of the first part as a component. More specifically:  
 * **1-bit ALU:**  
-We build a 1-bit ALU hierarchically using subcircuits capable of performing the operations: AND, OR, ADD, SUB, XOR, NOR and NAND. The program inputs are the following 1-bit numbers: a, b, Ainvert, Binvert, CarryIn and Operation whilst the program outputs are the Result and the CarryOut.
+We build a 1-bit ALU hierarchically using subcircuits capable of performing the operations: AND, OR, ADD, SUB, XOR, NOR and NAND. The program inputs are the following 1-bit numbers: a, b, Ainvert, Binvert, carryIn and operation whilst the program outputs are the result of the operation and the carryOut.
 
 
 * **16-bit ALU:**  
