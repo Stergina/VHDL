@@ -1,129 +1,163 @@
 -- Basic functions of package functions_1BitALU
 
 -- Loads necessary packages
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
 -- Package components declaration
-package functions_1BitALU is
+PACKAGE functions_1BitALU IS
 
 	-- logical AND gate with 2 inputs
-	component myAND
-		port (a, b: in std_logic; outAND: out std_logic);
-	end component;
-	 
+	COMPONENT myAND
+		PORT (
+			a, b : IN std_logic;
+			outAND : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- logical OR gate with 2 inputs
-	component myOR
-		port (a, b: in std_logic; outOR: out std_logic);
-	end component;
-		 
+	COMPONENT myOR
+		PORT (
+			a, b : IN std_logic;
+			outOR : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- logical XOR gate with 2 inputs
-	component myXOR
-		port (a, b: in std_logic; outXOR: out std_logic);
-	end component;
-	
+	COMPONENT myXOR
+		PORT (
+			a, b : IN std_logic;
+			outXOR : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- Full adder
-	component myADD
-		port (a, b, CarryIn: in std_logic; sum, cout: out std_logic);
-	end component;	
-		
+	COMPONENT myADD
+		PORT (
+			a, b, CarryIn : IN std_logic;
+			sum, cout : OUT std_logic
+		);
+	END COMPONENT; 
+ 
 	-- Inverts input a
-	component invA
-		port (a, Ainvert: in std_logic; outAinvert: out std_logic);
-	end component;
-					
+	COMPONENT invA
+		PORT (
+			a, Ainvert : IN std_logic;
+			outAinvert : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- Inverts input b
-	component invB
-		port (b, Binvert: in std_logic; outBinvert: out std_logic);
-	end component;	
-	
-end package functions_1BitALU;
+	COMPONENT invB
+		PORT (
+			b, Binvert : IN std_logic;
+			outBinvert : OUT std_logic
+		);
+	END COMPONENT; 
  
- 
+END PACKAGE functions_1BitALU;
 -- Package functions_1BitALU body
 
 -- Implementing a logical AND gate with 2 inputs
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity myAND is
-	port (a, b: in std_logic; outAND: out std_logic);
-end myAND;
+ENTITY myAND IS
+	PORT (
+		a, b : IN std_logic;
+		outAND : OUT std_logic
+	);
+END myAND;
 
-architecture andGate of myAND is
-begin
-	outAND <= a and b;
-end andGate;
-	
+ARCHITECTURE andGate OF myAND IS
+BEGIN
+	outAND <= a AND b;
+END andGate;
+ 
 -- Implementing a logical OR gate with 2 inputs
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity myOR is
-	port (a, b: in std_logic; outOR: out std_logic);
-end myOR;
+ENTITY myOR IS
+	PORT (
+	a, b : IN std_logic;
+	outOR : OUT std_logic
+	);
+END myOR;
 
-architecture orGate of myOR is
-begin
-	outOR <= a or b;
-end orGate;
-		
+ARCHITECTURE orGate OF myOR IS
+BEGIN
+	outOR <= a OR b;
+END orGate;
+ 
 -- Implementing a logical XOR gate with 2 inputs
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity myXOR is
-	port (a, b: in std_logic; outXOR: out std_logic);
-end myXOR;
+ENTITY myXOR IS
+	PORT (
+	a, b : IN std_logic;
+	outXOR : OUT std_logic
+	);
+END myXOR;
 
-architecture xorGate of myXOR is
-begin
-	outXOR <= a xor b;
-end xorGate;
- 
+ARCHITECTURE xorGate OF myXOR IS
+BEGIN
+	outXOR <= a XOR b;
+END xorGate;
+
 -- Implementing a full adder
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity myADD is
-	port (a, b, CarryIn: in std_logic; sum, cout: out std_logic);
-end myADD;
+ENTITY myADD IS
+	PORT (
+	a, b, CarryIn : IN std_logic;
+	sum, cout : OUT std_logic
+	);
+END myADD;
 
-architecture addGate of myADD is
-begin
-	sum <= ((a and (not b) and (not CarryIn)) or ((not a) and b and (not CarryIn)) or ((not a) and (not b) and CarryIn) or (a and b and CarryIn));
-	cout <= (b and CarryIn) or (a and CarryIn) or (a and b);
-end addGate;
- 
+ARCHITECTURE addGate OF myADD IS
+BEGIN
+	sum <= ((a AND (NOT b) AND (NOT CarryIn)) OR ((NOT a) AND b AND (NOT CarryIn)) OR ((NOT a) AND (NOT b) AND CarryIn) OR (a AND b AND CarryIn));
+	cout <= (b AND CarryIn) OR (a AND CarryIn) OR (a AND b);
+END addGate;
+
 -- Inverts input a
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity invA is
-	port (a, Ainvert: in std_logic; outAinvert: out std_logic);
-end invA;
+ENTITY invA IS
+	PORT (
+	a, Ainvert : IN std_logic;
+	outAinvert : OUT std_logic
+	);
+END invA;
 
-architecture AinvertMux of invA is
-begin
-	with Ainvert select
-		outAinvert <= a when '0',
-					not a when '1',
-					null when others;	
-end AinvertMux;
+ARCHITECTURE AinvertMux OF invA IS
+BEGIN
+	WITH Ainvert SELECT
+	outAinvert <= a WHEN '0', 
+	              NOT a WHEN '1', 
+	              NULL WHEN OTHERS; 
+END AinvertMux;
 
 -- Inverts input b
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity invB is
-	port (b, Binvert: in std_logic; outBinvert: out std_logic);
-end invB;
+ENTITY invB IS
+	PORT (
+	b, Binvert : IN std_logic;
+	outBinvert : OUT std_logic
+	);
+END invB;
 
-architecture BinvertMux of invB is
-begin
-	with Binvert select
-		outBinvert <= b when '0',
-					not b when '1',
-					null when others;	
-end BinvertMux;
+ARCHITECTURE BinvertMux OF invB IS
+BEGIN
+	WITH Binvert SELECT
+	outBinvert <= b WHEN '0', 
+	              NOT b WHEN '1', 
+	              NULL WHEN OTHERS; 
+END BinvertMux;
 --end package body functions_1BitALU;
