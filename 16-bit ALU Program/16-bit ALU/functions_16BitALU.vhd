@@ -1,210 +1,248 @@
 -- Basic functions of package functions_16BitALU
 
 -- Loads necessary packages
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
 -- Package components declaration
-package functions_16BitALU is
+PACKAGE functions_16BitALU IS
 
 	-- logical AND gate with 2 inputs
-	component myAND
-		port (a, b: in std_logic; outAND: out std_logic);
-	end component;
-	 
+	COMPONENT myAND
+		PORT (
+			a, b : IN std_logic;
+			outAND : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- logical OR gate with 2 inputs
-	component myOR
-		port (a, b: in std_logic; outOR: out std_logic);
-	end component;
-		 
+	COMPONENT myOR
+		PORT (
+			a, b : IN std_logic;
+			outOR : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- logical XOR gate with 2 inputs
-	component myXOR
-		port (a, b: in std_logic; outXOR: out std_logic);
-	end component;
-	
+	COMPONENT myXOR
+		PORT (
+			a, b : IN std_logic;
+			outXOR : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- Full adder
-	component myADD
-		port (a, b, CarryIn: in std_logic; sum, cout: out std_logic);
-	end component;	
+	COMPONENT myADD
+		PORT (
+			a, b, CarryIn : IN std_logic;
+			sum, cout : OUT std_logic
+		);
+	END COMPONENT; 
 
 	-- Inverts input a
-	component invA
-		port (a, Ainvert: in std_logic; outAinvert: out std_logic);
-	end component;
-					
+	COMPONENT invA
+		PORT (
+			a, Ainvert : IN std_logic;
+			outAinvert : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- Inverts input b
-	component invB
-		port (b, Binvert: in std_logic; outBinvert: out std_logic);
-	end component;
-	
+	COMPONENT invB
+		PORT (
+			b, Binvert : IN std_logic;
+			outBinvert : OUT std_logic
+		);
+	END COMPONENT;
+ 
 	-- Control Circuit
-	component myControlCircuit
-		port(opcode: in std_logic_vector (2 downto 0);
-			 Ainvert, Binvert, CarryIn: out std_logic;
-		     Operation: out std_logic_vector(1 downto 0));
-	end component;	
-	
-end package functions_16BitALU;
+	COMPONENT myControlCircuit
+		PORT (
+			opcode : IN std_logic_vector (2 DOWNTO 0);
+			Ainvert, Binvert, CarryIn : OUT std_logic;
+			Operation : OUT std_logic_vector(1 DOWNTO 0)
+		);
+	END COMPONENT; 
  
- 
+END PACKAGE functions_16BitALU;
 -- Package functions_16BitALU body
 
 -- Implementing a logical AND gate with 2 inputs
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity myAND is
-	port (a, b: in std_logic; outAND: out std_logic);
-end myAND;
+ENTITY myAND IS
+	PORT (
+		a, b : IN std_logic;
+		outAND : OUT std_logic
+	);
+END myAND;
 
-architecture andGate of myAND is
-begin
-	outAND <= a and b;
-end andGate;
-	
--- Implementing a logical OR gate with 2 inputs
-library ieee;
-use ieee.std_logic_1164.all;
-
-entity myOR is
-	port (a, b: in std_logic; outOR: out std_logic);
-end myOR;
-
-architecture orGate of myOR is
-begin
-	outOR <= a or b;
-end orGate;
-		
--- Implementing a logical XOR gate with 2 inputs
-library ieee;
-use ieee.std_logic_1164.all;
-
-entity myXOR is
-	port (a, b: in std_logic; outXOR: out std_logic);
-end myXOR;
-
-architecture xorGate of myXOR is
-begin
-	outXOR <= a xor b;
-end xorGate;
+ARCHITECTURE andGate OF myAND IS
+BEGIN
+	outAND <= a AND b;
+END andGate;
  
+-- Implementing a logical OR gate with 2 inputs
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY myOR IS
+	PORT (
+	a, b : IN std_logic;
+	outOR : OUT std_logic
+	);
+END myOR;
+
+ARCHITECTURE orGate OF myOR IS
+BEGIN
+	outOR <= a OR b;
+END orGate;
+ 
+-- Implementing a logical XOR gate with 2 inputs
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY myXOR IS
+	PORT (
+	a, b : IN std_logic;
+	outXOR : OUT std_logic
+	);
+END myXOR;
+
+ARCHITECTURE xorGate OF myXOR IS
+BEGIN
+	outXOR <= a XOR b;
+END xorGate;
+
 -- Implementing a full adder
-library ieee;
-use ieee.std_logic_1164.all;
-	
-entity myADD is
-	port (a, b, CarryIn: in std_logic; sum, cout: out std_logic);
-end myADD;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+ENTITY myADD IS
+	PORT (
+	a, b, CarryIn : IN std_logic;
+	sum, cout : OUT std_logic
+	);
+END myADD;
 
-architecture addGate of myADD is
-begin
-	sum <= ((a and (not b) and (not CarryIn)) or ((not a) and b and (not CarryIn)) or ((not a) and (not b) and CarryIn) or (a and b and CarryIn));
-	cout <= (b and CarryIn) or (a and CarryIn) or (a and b);
-end addGate;
-  
+ARCHITECTURE addGate OF myADD IS
+BEGIN
+	sum <= ((a AND (NOT b) AND (NOT CarryIn)) OR ((NOT a) AND b AND (NOT CarryIn)) OR ((NOT a) AND (NOT b) AND CarryIn) OR (a AND b AND CarryIn));
+	cout <= (b AND CarryIn) OR (a AND CarryIn) OR (a AND b);
+END addGate;
+ 
 -- Inverts input a
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity invA is
-	port (a, Ainvert: in std_logic; outAinvert: out std_logic);
-end invA;
+ENTITY invA IS
+	PORT (
+	a, Ainvert : IN std_logic;
+	outAinvert : OUT std_logic
+	);
+END invA;
 
-architecture AinvertMux of invA is
-begin
-	with Ainvert select
-		outAinvert <= a when '0',
-					not a when '1',
-					null when others;	
-end AinvertMux;
+ARCHITECTURE AinvertMux OF invA IS
+BEGIN
+	WITH Ainvert SELECT
+	outAinvert <= a WHEN '0', 
+	              NOT a WHEN '1', 
+	              NULL WHEN OTHERS; 
+END AinvertMux;
 
 -- Inverts input b
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity invB is
-	port (b, Binvert: in std_logic; outBinvert: out std_logic);
-end invB;
+ENTITY invB IS
+	PORT (
+	b, Binvert : IN std_logic;
+	outBinvert : OUT std_logic
+	);
+END invB;
 
-architecture BinvertMux of invB is
-begin
-	with Binvert select
-		outBinvert <= b when '0',
-					not b when '1',
-					null when others;	
-end BinvertMux;
+ARCHITECTURE BinvertMux OF invB IS
+BEGIN
+	WITH Binvert SELECT
+	outBinvert <= b WHEN '0', 
+	              NOT b WHEN '1', 
+	              NULL WHEN OTHERS; 
+END BinvertMux;
 
 -- Implementing the control circuit
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity myControlCircuit is 
-	port(opcode: in std_logic_vector (2 downto 0);
-		 Ainvert, Binvert, CarryIn: out std_logic;
-		 Operation: out std_logic_vector(1 downto 0));
-end myControlCircuit;
+ENTITY myControlCircuit IS
+	PORT (
+	opcode : IN std_logic_vector (2 DOWNTO 0);
+	Ainvert, Binvert, CarryIn : OUT std_logic;
+	Operation : OUT std_logic_vector(1 DOWNTO 0)
+	);
+END myControlCircuit;
 
-architecture ctrlCircuit of myControlCircuit is   
-begin
-	process(opcode)
-	begin
-		case opcode is 
-		 --Function AND--
-		when "000"=>
-			Operation <= "00";
-			Ainvert   <= '0';
-			Binvert   <= '0';
-			CarryIn   <= '0';
+ARCHITECTURE ctrlCircuit OF myControlCircuit IS 
+BEGIN
+	PROCESS (opcode)
+	BEGIN
+		CASE opcode IS
+			--Function AND--
+			WHEN "000" => 
+				Operation <= "00";
+				Ainvert <= '0';
+				Binvert <= '0';
+				CarryIn <= '0';
 
-		 --Function OR--
-		when "001" =>
-			Operation <= "01";
-			Ainvert   <= '0';
-			Binvert   <= '0';
-			CarryIn	  <= '0';
+				--Function OR--
+			WHEN "001" => 
+				Operation <= "01";
+				Ainvert <= '0';
+				Binvert <= '0';
+				CarryIn <= '0';
 
-		 --Function ADD--
-		 when "010" =>
-			Operation <= "10";
-			Ainvert   <= '0';
-			Binvert   <= '0';
-			CarryIn	  <= '0';
+				--Function ADD--
+			WHEN "010" => 
+				Operation <= "10";
+				Ainvert <= '0';
+				Binvert <= '0';
+				CarryIn <= '0';
 
-		 --Function SUB--         
-		when "011" =>
-			Operation <= "10";
-			Ainvert   <= '0';
-			Binvert   <= '1';
-			CarryIn   <= '1';
+				--Function SUB-- 
+			WHEN "011" => 
+				Operation <= "10";
+				Ainvert <= '0';
+				Binvert <= '1';
+				CarryIn <= '1';
 
-		 --Function NOR--
-		when "100" =>
-			Operation <= "00";
-			Ainvert   <= '1';
-			Binvert   <= '1';
-			CarryIn   <= '0';
+				--Function NOR--
+			WHEN "100" => 
+				Operation <= "00";
+				Ainvert <= '1';
+				Binvert <= '1';
+				CarryIn <= '0';
 
-		 --Function NAND--
-		when "101"=>
-			Operation <= "01";
-			Ainvert   <= '1';
-			Binvert	  <= '1';
-			CarryIn	  <= '0';
+				--Function NAND--
+			WHEN "101" => 
+				Operation <= "01";
+				Ainvert <= '1';
+				Binvert <= '1';
+				CarryIn <= '0';
 
-		 --Function XOR--
-		when "110"=>
-			Operation <= "11";
-			Ainvert   <= '0';
-			Binvert   <= '0';
-			CarryIn	  <= '0';
+				--Function XOR--
+			WHEN "110" => 
+				Operation <= "11";
+				Ainvert <= '0';
+				Binvert <= '0';
+				CarryIn <= '0';
 
-		 --Other cases--
-		when others =>
-			Operation <= "00";
-			Ainvert   <= '0';
-			Binvert	  <= '0';
-			CarryIn   <= '0';
-		end case;
-	end process;
-end ctrlCircuit;
+				--Other cases--
+			WHEN OTHERS => 
+				Operation <= "00";
+				Ainvert <= '0';
+				Binvert <= '0';
+				CarryIn <= '0';
+		END CASE;
+	END PROCESS;
+END ctrlCircuit;
 --end package body functions_16BitALU;
